@@ -4,17 +4,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -75,12 +78,11 @@ fun PlantListScreen(
 
                 else -> LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    // Laisse de la place sous la dernière ligne pour que le bouton + ne la cache pas.
-                    contentPadding = PaddingValues(bottom = 96.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+                    verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(12.dp),
                 ) {
                     items(state.plants.sortedBy { it.name.lowercase() }, key = { it.id }) { plant ->
-                        PlantRow(plant = plant, onClick = { onOpen(plant.id) })
-                        HorizontalDivider()
+                        PlantCard(plant = plant, onClick = { onOpen(plant.id) })
                     }
                 }
             }
@@ -89,13 +91,37 @@ fun PlantListScreen(
 }
 
 @Composable
-private fun PlantRow(plant: Plant, onClick: () -> Unit) {
-    ListItem(
-        modifier = Modifier.clickable(onClick = onClick),
-        leadingContent = { PlantPhoto(photoPath = plant.photoPath, size = 56.dp) },
-        headlineContent = { Text(plant.name) },
-        supportingContent = { Text(summary(plant)) },
-    )
+private fun PlantCard(plant: Plant, onClick: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+    ) {
+        Row(
+            modifier = Modifier.padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            PlantPhoto(photoPath = plant.photoPath, size = 92.dp)
+            Spacer(Modifier.width(14.dp))
+            Column {
+                Text(
+                    text = plant.name,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = summary(plant),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
 }
 
 private fun summary(plant: Plant): String {

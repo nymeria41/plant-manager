@@ -1,16 +1,11 @@
 package com.example.plantmanager.ui
 
-import android.os.Build
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,6 +18,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.example.plantmanager.PhotoStore
 import com.example.plantmanager.PlantsState
@@ -34,16 +30,41 @@ private const val SCREEN_NEW = 0L
 
 @Composable
 fun PlantTheme(content: @Composable () -> Unit) {
-    val dark = isSystemInDarkTheme()
-    val context = LocalContext.current
-    val colors = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
-            if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        dark -> darkColorScheme()
-        else -> lightColorScheme()
-    }
-    MaterialTheme(colorScheme = colors, content = content)
+    MaterialTheme(
+        colorScheme = lightColorScheme(
+            primary = ForestGreen,
+            onPrimary = Color.White,
+            primaryContainer = SageGreen,
+            onPrimaryContainer = DeepForest,
+            secondary = WarmBrown,
+            onSecondary = Color.White,
+            secondaryContainer = Caramel,
+            onSecondaryContainer = DarkBrown,
+            tertiary = OliveGreen,
+            background = Beige,
+            onBackground = DarkBrown,
+            surface = SoftBeige,
+            onSurface = DarkBrown,
+            surfaceVariant = Cream,
+            onSurfaceVariant = BrownGrey,
+            error = ErrorRed,
+        ),
+        content = content,
+    )
 }
+
+private val ForestGreen = Color(0xFF2F5D3A)
+private val DeepForest = Color(0xFF17351F)
+private val SageGreen = Color(0xFFC4D6B8)
+private val OliveGreen = Color(0xFF687A3D)
+private val WarmBrown = Color(0xFF825A3C)
+private val DarkBrown = Color(0xFF3D2B20)
+private val Caramel = Color(0xFFE5C6A1)
+private val BrownGrey = Color(0xFF6E6258)
+private val Beige = Color(0xFFF5EBDD)
+private val SoftBeige = Color(0xFFFFF9F1)
+private val Cream = Color(0xFFEDE0D0)
+private val ErrorRed = Color(0xFF9E3F32)
 
 @Composable
 fun PlantManagerApp(repository: PlantRepository) {
