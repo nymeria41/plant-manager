@@ -14,6 +14,10 @@ data class LibraryData(val nextId: Long, val plants: List<Plant>)
 internal data class PlantDto(
     val id: Long,
     val name: String,
+    val species: String = "",
+    val sunlight: String = "",
+    val location: String = "",
+    val notes: String = "",
     /** Nom de fichier relatif au dossier de l'app, jamais un chemin absolu. */
     val photoPath: String? = null,
     val acquiredOn: String,
@@ -89,6 +93,10 @@ object LibraryJson {
 private fun Plant.toDto() = PlantDto(
     id = id,
     name = name,
+    species = species,
+    sunlight = sunlight,
+    location = location,
+    notes = notes,
     photoPath = photoPath,
     acquiredOn = acquiredOn.toString(),
     wateringEveryDays = wateringEveryDays,
@@ -100,6 +108,10 @@ private fun Plant.toDto() = PlantDto(
 private fun PlantDto.toPlant() = Plant(
     id = id,
     name = name,
+    species = species,
+    sunlight = sunlight,
+    location = location,
+    notes = notes,
     photoPath = photoPath,
     acquiredOn = LocalDate.parse(acquiredOn),
     wateringEveryDays = wateringEveryDays,

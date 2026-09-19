@@ -67,6 +67,10 @@ fun PlantFormScreen(
 
     // Les dates sont gardées en « jours depuis 1970 » (Long) : simple à sauvegarder à la rotation.
     var name by rememberSaveable { mutableStateOf(plant?.name ?: "") }
+    var species by rememberSaveable { mutableStateOf(plant?.species ?: "") }
+    var sunlight by rememberSaveable { mutableStateOf(plant?.sunlight ?: "") }
+    var location by rememberSaveable { mutableStateOf(plant?.location ?: "") }
+    var notes by rememberSaveable { mutableStateOf(plant?.notes ?: "") }
     var wateringText by rememberSaveable { mutableStateOf(plant?.wateringEveryDays?.toString() ?: "7") }
     var fertText by rememberSaveable { mutableStateOf(plant?.fertilizingEveryDays?.toString() ?: "") }
     var acquiredDay by rememberSaveable { mutableStateOf(plant?.acquiredOn?.toEpochDay() ?: today) }
@@ -202,6 +206,42 @@ fun PlantFormScreen(
                 modifier = Modifier.fillMaxWidth(),
             )
 
+            OutlinedTextField(
+                value = species,
+                onValueChange = { species = it },
+                label = { Text("Espèce") },
+                placeholder = { Text("Ex. Monstera deliciosa") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            OutlinedTextField(
+                value = sunlight,
+                onValueChange = { sunlight = it },
+                label = { Text("Ensoleillement") },
+                placeholder = { Text("Ex. Lumière indirecte") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            OutlinedTextField(
+                value = location,
+                onValueChange = { location = it },
+                label = { Text("Emplacement") },
+                placeholder = { Text("Ex. Salon, près de la fenêtre") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            OutlinedTextField(
+                value = notes,
+                onValueChange = { notes = it },
+                label = { Text("Notes") },
+                placeholder = { Text("Ajoute tes observations...") },
+                minLines = 3,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
             DateField(
                 label = "Date d'acquisition",
                 epochDay = acquiredDay,
@@ -266,6 +306,10 @@ fun PlantFormScreen(
                                 Plant(
                                     id = plant?.id ?: 0L,
                                     name = name.trim(),
+                                    species = species.trim(),
+                                    sunlight = sunlight.trim(),
+                                    location = location.trim(),
+                                    notes = notes.trim(),
                                     photoPath = photoPath,
                                     acquiredOn = LocalDate.ofEpochDay(acquiredDay),
                                     wateringEveryDays = checkNotNull(wateringDays),

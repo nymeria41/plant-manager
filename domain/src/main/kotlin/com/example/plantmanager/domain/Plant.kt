@@ -15,6 +15,10 @@ enum class Care { WATERING, FERTILIZING }
 data class Plant(
     val id: Long,
     val name: String,
+    val species: String = "",
+    val sunlight: String = "",
+    val location: String = "",
+    val notes: String = "",
     val photoPath: String? = null,
     val acquiredOn: LocalDate,
     val wateringEveryDays: Int,

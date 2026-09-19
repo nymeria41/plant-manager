@@ -10,6 +10,10 @@ class LibraryJsonTest {
     private val full = Plant(
         id = 3,
         name = "Monstera",
+        species = "Monstera deliciosa",
+        sunlight = "Lumière indirecte",
+        location = "Salon",
+        notes = "Tourner le pot chaque semaine",
         photoPath = "photos/3.jpg",
         acquiredOn = LocalDate.of(2026, 3, 14),
         wateringEveryDays = 7,
@@ -58,8 +62,22 @@ class LibraryJsonTest {
         val plant = LibraryJson.decode(text).plants.single()
         assertEquals("Ficus", plant.name)
         assertEquals(null, plant.photoPath)
+        assertEquals("", plant.species)
+        assertEquals("", plant.sunlight)
+        assertEquals("", plant.location)
+        assertEquals("", plant.notes)
         assertEquals(null, plant.fertilizingEveryDays)
         assertEquals(null, plant.lastWateredOn)
+    }
+
+    @Test
+    fun encodedTextCarriesPlantDetails() {
+        val text = LibraryJson.encode(listOf(full), nextId = 4)
+
+        assertTrue(text.contains("\"species\": \"Monstera deliciosa\""))
+        assertTrue(text.contains("\"sunlight\": \"Lumière indirecte\""))
+        assertTrue(text.contains("\"location\": \"Salon\""))
+        assertTrue(text.contains("\"notes\": \"Tourner le pot chaque semaine\""))
     }
 
     @Test

@@ -1,32 +1,39 @@
 package com.example.plantmanager.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.plantmanager.PlantsState
 import com.example.plantmanager.domain.Care
@@ -45,22 +52,51 @@ fun PlantListScreen(
     onAdd: () -> Unit,
     onOpen: (Long) -> Unit,
 ) {
+    var search by remember { mutableStateOf("") }
+    val today = remember { LocalDate.now() }
+    val filteredPlants = state.plants
+        .sortedBy { it.name.lowercase() }
+        .filter { it.name.contains(search.trim(), ignoreCase = true) }
+    val plantsToWater = state.plants.count { it.nextDue(Care.WATERING) == today }
+
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Mes plantes") }) },
         floatingActionButton = {
-            FloatingActionButton(onClick = onAdd) {
+            FloatingActionButton(
+                onClick = onAdd,
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+            ) {
                 Text("+", style = MaterialTheme.typography.headlineMedium)
             }
         },
     ) { padding ->
-        Column(Modifier.padding(padding).fillMaxSize()) {
+        Column(
+            Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .padding(horizontal = 24.dp),
+        ) {
+            Text(
+                text = "Verdant",
+                style = MaterialTheme.typography.displaySmall,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(top = 20.dp),
+            )
+            Text(
+                text = "Ton astuce main verte",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.tertiary,
+            )
+            SpacerHeight(18.dp)
+
             state.loadWarning?.let { warning ->
-                Card(Modifier.fillMaxWidth().padding(16.dp)) {
+                Card(Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(16.dp)) {
                         Text(warning)
                         TextButton(onClick = state::dismissLoadWarning) { Text("OK") }
                     }
                 }
+                SpacerHeight(12.dp)
             }
 
             when {
@@ -76,13 +112,55 @@ fun PlantListScreen(
                     )
                 }
 
-                else -> LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-                    verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(12.dp),
-                ) {
-                    items(state.plants.sortedBy { it.name.lowercase() }, key = { it.id }) { plant ->
-                        PlantCard(plant = plant, onClick = { onOpen(plant.id) })
+                else -> {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        ),
+                    ) {
+                        Column(Modifier.padding(20.dp)) {
+                            Text(
+                                text = "Il est temps d'arroser",
+                                style = MaterialTheme.typography.headlineSmall,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            )
+                            Text(
+                                text = if (plantsToWater == 0) {
+                                    "Tout est à jour aujourd'hui"
+                                } else {
+                                    "$plantsToWater plante${if (plantsToWater > 1) "s" else ""} à arroser aujourd'hui"
+                                },
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            )
+                        }
+                    }
+                    SpacerHeight(16.dp)
+                    OutlinedTextField(
+                        value = search,
+                        onValueChange = { search = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        placeholder = { Text("Rechercher dans ton jardin...") },
+                        leadingIcon = { Text("⌕", style = MaterialTheme.typography.headlineSmall) },
+                    )
+                    SpacerHeight(20.dp)
+                    Text(
+                        text = "Ma collection",
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    SpacerHeight(10.dp)
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(bottom = 104.dp),
+                        horizontalArrangement = Arrangement.spacedBy(14.dp),
+                        verticalArrangement = Arrangement.spacedBy(14.dp),
+                    ) {
+                        items(filteredPlants, key = { it.id }) { plant ->
+                            PlantCard(plant = plant, onClick = { onOpen(plant.id) })
+                        }
                     }
                 }
             }
@@ -91,51 +169,61 @@ fun PlantListScreen(
 }
 
 @Composable
+private fun SpacerHeight(height: Dp) {
+    Spacer(Modifier.height(height))
+}
+
+@Composable
 private fun PlantCard(plant: Plant, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-        ),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
     ) {
-        Row(
-            modifier = Modifier.padding(14.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            PlantPhoto(photoPath = plant.photoPath, size = 92.dp)
-            Spacer(Modifier.width(14.dp))
-            Column {
+        Column(Modifier.padding(10.dp)) {
+            PlantPhoto(
+                photoPath = plant.photoPath,
+                size = 140.dp,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            SpacerHeight(8.dp)
+            Text(
+                text = plant.name,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                maxLines = 1,
+            )
+            if (plant.species.isNotBlank()) {
                 Text(
-                    text = plant.name,
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-                Spacer(Modifier.height(6.dp))
-                Text(
-                    text = summary(plant),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    text = plant.species,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontFamily = FontFamily.Serif,
+                        fontStyle = FontStyle.Italic,
+                    ),
+                    color = MaterialTheme.colorScheme.tertiary,
+                    maxLines = 1,
                 )
             }
+            Text(
+                text = summary(plant).lineSequence().firstOrNull() ?: "Aucun rappel",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 2,
+                modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
+            )
         }
     }
 }
 
 private fun summary(plant: Plant): String {
     val lines = mutableListOf<String>()
-
-    val nextWatering = plant.nextDue(Care.WATERING)
-    if (nextWatering != null) {
-        lines.add("Arrosage tous les ${plant.wateringEveryDays} j · prochain : ${formatDate(nextWatering)}")
+    plant.nextDue(Care.WATERING)?.let {
+        lines.add("Arrosage : ${formatDate(it)}")
     }
-
-    val nextFertilizing = plant.nextDue(Care.FERTILIZING)
-    if (nextFertilizing != null) {
-        lines.add("Engrais tous les ${plant.fertilizingEveryDays} j · prochain : ${formatDate(nextFertilizing)}")
+    plant.nextDue(Care.FERTILIZING)?.let {
+        lines.add("Engrais : ${formatDate(it)}")
     }
-
     return lines.joinToString("\n")
 }

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.plantmanager.domain.NotificationPlannerTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-09-19T20:39:11.105Z" hostname="NYMERIA" time="0.023">
+<testsuite name="com.example.plantmanager.domain.NotificationPlannerTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-09-19T22:11:52.595Z" hostname="NYMERIA" time="0.02">
   <properties/>
-  <testcase name="allRemindersOfTodayPassed_nextIsTomorrowFollowUp" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.008"/>
+  <testcase name="allRemindersOfTodayPassed_nextIsTomorrowFollowUp" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.009"/>
   <testcase name="plantDueAfterTheWindow_onlyGetsTheReopenNotification" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.0"/>
   <testcase name="futureDueDate_nothingBeforeIt" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.001"/>
   <testcase name="notificationIdsAreUnique" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.004"/>
-  <testcase name="windowLengthIsRespected" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.001"/>
+  <testcase name="windowLengthIsRespected" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.0"/>
   <testcase name="passedRemindersAreSkipped" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.0"/>
-  <testcase name="wateringAndFertilizingShareTheSameNotification" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.003"/>
-  <testcase name="plantDueToday_beforeNotificationTime" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.001"/>
+  <testcase name="wateringAndFertilizingShareTheSameNotification" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.002"/>
+  <testcase name="plantDueToday_beforeNotificationTime" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.0"/>
   <testcase name="sameInputsGiveSameIds" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.001"/>
   <testcase name="dueTodayAndOverdueOnTheSameDay" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.001"/>
   <testcase name="planIsInChronologicalOrder" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.0"/>
-  <testcase name="validatingWateringRebuildsThePlan" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.0"/>
-  <testcase name="customNotificationTimeIsUsed" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.001"/>
+  <testcase name="validatingWateringRebuildsThePlan" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.001"/>
+  <testcase name="customNotificationTimeIsUsed" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.0"/>
   <testcase name="emptyLibraryPlansNothing" classname="com.example.plantmanager.domain.NotificationPlannerTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
