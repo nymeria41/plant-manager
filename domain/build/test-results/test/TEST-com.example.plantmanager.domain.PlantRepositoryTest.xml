@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.plantmanager.domain.PlantRepositoryTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-09-19T20:39:11.139Z" hostname="NYMERIA" time="0.089">
+  <properties/>
+  <testcase name="freshRepositoryIsEmpty" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.006"/>
+  <testcase name="noTemporaryFileIsLeftBehind" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.005"/>
+  <testcase name="importReplaceOverwritesEverything" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.007"/>
+  <testcase name="deleteReturnsTheRemovedPlant" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.003"/>
+  <testcase name="addAssignsSequentialIdsAndPersists" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.01"/>
+  <testcase name="exportIsTheSameFormatAsTheLibraryFile" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.007"/>
+  <testcase name="invalidImportChangesNothing" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.003"/>
+  <testcase name="corruptFileIsSetAsideNotOverwritten" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.009"/>
+  <testcase name="idsAreNeverReusedAfterADelete" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.011"/>
+  <testcase name="markWateredAndFertilizedArePersisted" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.008"/>
+  <testcase name="updateReplacesThePlant" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.007"/>
+  <testcase name="updatingAnUnknownPlantFails" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.001"/>
+  <testcase name="importAddKeepsExistingPlantsAndReassignsIds" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.01"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

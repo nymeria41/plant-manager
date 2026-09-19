@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.plantmanager.domain.NotificationTextsTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-09-19T20:39:11.131Z" hostname="NYMERIA" time="0.005">
+  <properties/>
+  <testcase name="dueDay_listsNamesWhenFewerThanFivePlants" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.001"/>
+  <testcase name="dueDay_fivePlantsShowOnlyTheCount" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.0"/>
+  <testcase name="followUp_listsNamesWithDelay" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.0"/>
+  <testcase name="dueDay_wateringAndFertilizingAreOnSeparateLines" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.0"/>
+  <testcase name="followUp_summaryWhenFiveOrMore" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.002"/>
+  <testcase name="dueDay_mixedSummary" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.0"/>
+  <testcase name="emptyTaskListIsRejected" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.0"/>
+  <testcase name="dueDay_fertilizingOnly" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.0"/>
+  <testcase name="followUp_summaryHandlesSingularAndPlural" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.0"/>
+  <testcase name="dueDay_mixedNames" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.0"/>
+  <testcase name="dueDay_fourPlantsStillListNames" classname="com.example.plantmanager.domain.NotificationTextsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
