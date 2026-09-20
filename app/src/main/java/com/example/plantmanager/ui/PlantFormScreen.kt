@@ -87,7 +87,7 @@ fun PlantFormScreen(
     val scope = rememberCoroutineScope()
     var cameraCapturePath by rememberSaveable { mutableStateOf<String?>(null) }
 
-    fun importPhoto(uri: Uri) {
+    fun importPhoto(uri: Uri, whenDone: () -> Unit = {}) {
         importing = true
         scope.launch {
             try {
@@ -97,14 +97,14 @@ fun PlantFormScreen(
             } catch (e: Exception) {
                 Toast.makeText(context, "Photo impossible à importer : ${e.message}", Toast.LENGTH_LONG).show()
             } finally {
+                whenDone()
                 importing = false
             }
         }
     }
 
-    // Sélecteur de photos du système : aucune permission à demander.
     val pickPhoto = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
-        uri?.let(::importPhoto)
+        if (uri != null) importPhoto(uri)
     }
 
     val takePhoto = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { success ->
@@ -114,11 +114,8 @@ fun PlantFormScreen(
             val captureFile = File(capturePath)
             if (success) {
                 importPhoto(
-                    FileProvider.getUriForFile(
-                        context,
-                        "${context.packageName}.fileprovider",
-                        captureFile,
-                    ),
+                    FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", captureFile),
+                    whenDone = { captureFile.delete() },
                 )
             } else {
                 captureFile.delete()

@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.plantmanager.PlantsState
 import com.example.plantmanager.domain.Care
+import com.example.plantmanager.domain.NotificationPlanner
 import com.example.plantmanager.domain.Plant
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -51,13 +52,18 @@ fun PlantListScreen(
     state: PlantsState,
     onAdd: () -> Unit,
     onOpen: (Long) -> Unit,
+    onOpenToday: () -> Unit,
 ) {
     var search by remember { mutableStateOf("") }
-    val today = remember { LocalDate.now() }
+    val today = LocalDate.now()
     val filteredPlants = state.plants
         .sortedBy { it.name.lowercase() }
         .filter { it.name.contains(search.trim(), ignoreCase = true) }
-    val plantsToWater = state.plants.count { it.nextDue(Care.WATERING) == today }
+
+    // Tout ce dont l'échéance est aujourd'hui OU déjà passée (même règle que les notifications).
+    val dueTasks = NotificationPlanner.dueTasks(state.plants, today)
+    val wateringCount = dueTasks.count { it.care == Care.WATERING }
+    val fertilizingCount = dueTasks.count { it.care == Care.FERTILIZING }
 
     Scaffold(
         floatingActionButton = {
@@ -114,25 +120,43 @@ fun PlantListScreen(
 
                 else -> {
                     Card(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable(enabled = dueTasks.isNotEmpty(), onClick = onOpenToday),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.primaryContainer,
                         ),
                     ) {
                         Column(Modifier.padding(20.dp)) {
                             Text(
-                                text = "Il est temps d'arroser",
+                                text = when {
+                                    wateringCount > 0 -> "Il est temps d'arroser"
+                                    fertilizingCount > 0 -> "Un coup d'engrais s'impose"
+                                    else -> "Tout est à jour"
+                                },
                                 style = MaterialTheme.typography.headlineSmall,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                             )
-                            Text(
-                                text = if (plantsToWater == 0) {
-                                    "Tout est à jour aujourd'hui"
+                            val details = listOfNotNull(
+                                if (wateringCount > 0) {
+                                    "$wateringCount plante${if (wateringCount > 1) "s" else ""} à arroser"
                                 } else {
-                                    "$plantsToWater plante${if (plantsToWater > 1) "s" else ""} à arroser aujourd'hui"
+                                    null
                                 },
+                                if (fertilizingCount > 0) "$fertilizingCount à fertiliser" else null,
+                            ).joinToString(" · ")
+                            Text(
+                                text = details.ifEmpty { "Rien à faire aujourd'hui" },
                                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                             )
+                            if (dueTasks.isNotEmpty()) {
+                                Text(
+                                    text = "Voir la liste ›",
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    modifier = Modifier.padding(top = 8.dp),
+                                )
+                            }
                         }
                     }
                     SpacerHeight(16.dp)

@@ -24,8 +24,12 @@ import com.example.plantmanager.PhotoStore
 import com.example.plantmanager.PlantsState
 import com.example.plantmanager.domain.PlantRepository
 
-/** Écran affiché : la liste, le formulaire d'une nouvelle plante, ou l'id d'une plante à modifier. */
+/**
+ * Écran affiché : la liste, « À faire aujourd'hui », le formulaire d'une nouvelle plante,
+ * ou l'id (toujours positif) d'une plante à modifier.
+ */
 private const val SCREEN_LIST = -1L
+private const val SCREEN_TODAY = -2L
 private const val SCREEN_NEW = 0L
 
 @Composable
@@ -85,6 +89,13 @@ fun PlantManagerApp(repository: PlantRepository) {
         SCREEN_LIST -> PlantListScreen(
             state = state,
             onAdd = { screen = SCREEN_NEW },
+            onOpen = { id -> screen = id },
+            onOpenToday = { screen = SCREEN_TODAY },
+        )
+
+        SCREEN_TODAY -> TodayScreen(
+            state = state,
+            onBack = { screen = SCREEN_LIST },
             onOpen = { id -> screen = id },
         )
 

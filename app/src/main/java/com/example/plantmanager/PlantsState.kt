@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 
 /**
  * Pont entre le dépôt (appels bloquants, sur le disque) et l'interface Compose.
@@ -62,6 +63,14 @@ class PlantsState(
     }
 
     fun delete(id: Long) = perform { repository.delete(id) }
+
+    /** Enregistre un arrosage : la prochaine échéance repart de [on]. */
+    fun markWatered(id: Long, on: LocalDate = LocalDate.now()) =
+        perform { repository.markWatered(id, on) }
+
+    /** Enregistre une fertilisation : la prochaine échéance repart de [on]. */
+    fun markFertilized(id: Long, on: LocalDate = LocalDate.now()) =
+        perform { repository.markFertilized(id, on) }
 
     fun dismissLoadWarning() {
         loadWarning = null

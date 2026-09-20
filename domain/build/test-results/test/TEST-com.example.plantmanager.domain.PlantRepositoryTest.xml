@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.plantmanager.domain.PlantRepositoryTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-09-19T22:11:52.625Z" hostname="NYMERIA" time="0.066">
+<testsuite name="com.example.plantmanager.domain.PlantRepositoryTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-09-20T07:54:46.258Z" hostname="NYMERIA" time="0.113">
   <properties/>
-  <testcase name="freshRepositoryIsEmpty" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.004"/>
-  <testcase name="noTemporaryFileIsLeftBehind" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.004"/>
-  <testcase name="importReplaceOverwritesEverything" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.008"/>
+  <testcase name="freshRepositoryIsEmpty" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.015"/>
+  <testcase name="noTemporaryFileIsLeftBehind" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.005"/>
+  <testcase name="importReplaceOverwritesEverything" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.021"/>
   <testcase name="deleteReturnsTheRemovedPlant" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.002"/>
-  <testcase name="addAssignsSequentialIdsAndPersists" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.005"/>
-  <testcase name="exportIsTheSameFormatAsTheLibraryFile" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.008"/>
-  <testcase name="invalidImportChangesNothing" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.005"/>
-  <testcase name="corruptFileIsSetAsideNotOverwritten" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.005"/>
-  <testcase name="idsAreNeverReusedAfterADelete" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.006"/>
-  <testcase name="markWateredAndFertilizedArePersisted" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.005"/>
-  <testcase name="updateReplacesThePlant" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.004"/>
+  <testcase name="addAssignsSequentialIdsAndPersists" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.01"/>
+  <testcase name="exportIsTheSameFormatAsTheLibraryFile" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.007"/>
+  <testcase name="invalidImportChangesNothing" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.004"/>
+  <testcase name="corruptFileIsSetAsideNotOverwritten" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.01"/>
+  <testcase name="idsAreNeverReusedAfterADelete" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.01"/>
+  <testcase name="markWateredAndFertilizedArePersisted" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.01"/>
+  <testcase name="updateReplacesThePlant" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.007"/>
   <testcase name="updatingAnUnknownPlantFails" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.001"/>
-  <testcase name="importAddKeepsExistingPlantsAndReassignsIds" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.006"/>
+  <testcase name="importAddKeepsExistingPlantsAndReassignsIds" classname="com.example.plantmanager.domain.PlantRepositoryTest" time="0.01"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

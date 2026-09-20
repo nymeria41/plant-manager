@@ -10,6 +10,8 @@
         android:fillColor="#C4D6B8"
         android:pathData="M53,82C51,66 55,50 65,37C68,33 72,29 77,25C68,43 62,60 61,75C58,78 56,80 53,82Z" />
     <path
-        android:fillColor="#825A3C"
+        android:fillColor="#F5EBDD"
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
         android:pathData="M35,47C35,44 37,41 40,41L45,41L54,61L66,40C67,38 69,37 72,37L77,37L59,72C58,75 56,77 53,77C50,77 48,75 47,72L35,47Z" />
 </vector>

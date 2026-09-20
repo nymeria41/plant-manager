@@ -147,4 +147,27 @@ class LibraryJsonTest {
         """.trimIndent()
         LibraryJson.decode(text)
     }
+
+    @Test
+    fun descriptiveFieldsRoundTrip() {
+        val plant = full.copy(
+            species = "Monstera deliciosa",
+            sunlight = "Lumière indirecte",
+            location = "Salon",
+            notes = "Nouvelle feuille en juin\nÀ rempoter au printemps",
+        )
+        val decoded = LibraryJson.decode(LibraryJson.encode(listOf(plant), nextId = 4)).plants.single()
+        assertEquals(plant, decoded)
+    }
+
+    @Test
+    fun oldFileWithoutDescriptiveFieldsStillLoads() {
+        val text = """{"version":1,"nextId":2,"plants":[
+        {"id":1,"name":"Ficus","acquiredOn":"2026-09-01","wateringEveryDays":7}]}"""
+        val plant = LibraryJson.decode(text).plants.single()
+        assertEquals("", plant.species)
+        assertEquals("", plant.sunlight)
+        assertEquals("", plant.location)
+        assertEquals("", plant.notes)
+    }
 }

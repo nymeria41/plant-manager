@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.plantmanager.domain.LibraryJsonTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-09-19T22:11:52.523Z" hostname="NYMERIA" time="0.068">
+<testsuite name="com.example.plantmanager.domain.LibraryJsonTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-09-20T07:54:45.939Z" hostname="NYMERIA" time="0.197">
   <properties/>
-  <testcase name="invalidFrequencyIsRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.035"/>
-  <testcase name="nextIdNeverFallsBelowAnExistingId" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.002"/>
+  <testcase name="invalidFrequencyIsRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.127"/>
+  <testcase name="nextIdNeverFallsBelowAnExistingId" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.001"/>
   <testcase name="optionalFieldsMayBeMissing" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.0"/>
-  <testcase name="encodedTextCarriesPlantDetails" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.007"/>
-  <testcase name="unknownFieldsAreIgnored" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.015"/>
+  <testcase name="encodedTextCarriesPlantDetails" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.037"/>
+  <testcase name="unknownFieldsAreIgnored" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.017"/>
   <testcase name="garbageIsRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.001"/>
   <testcase name="encodedTextCarriesTheFormatVersion" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.0"/>
+  <testcase name="oldFileWithoutDescriptiveFieldsStillLoads" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.0"/>
   <testcase name="roundTripKeepsEveryField" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.001"/>
-  <testcase name="emptyLibraryRoundTrips" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.001"/>
-  <testcase name="newerFormatVersionIsRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.0"/>
+  <testcase name="emptyLibraryRoundTrips" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.0"/>
+  <testcase name="newerFormatVersionIsRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.001"/>
+  <testcase name="descriptiveFieldsRoundTrip" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.0"/>
   <testcase name="emptyTextIsRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.0"/>
-  <testcase name="duplicateIdsAreRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.0"/>
-  <testcase name="invalidDateIsRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.0"/>
+  <testcase name="duplicateIdsAreRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.001"/>
+  <testcase name="invalidDateIsRejected" classname="com.example.plantmanager.domain.LibraryJsonTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
